@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Stainy Resume Builder</title>
+    <link rel="stylesheet" href="./css/lib/bootstrap.min.css">
+</head>
+<body>
+    <div id="login" class="vh-100 vw-100" style="display:block">
+        <div class="d-flex justify-content-center align-items-center vh-100">
+            <div class="card border-secondary rounded col-8">
+                <div class="card-header h2 text-center">The Stainy Resume Builder</div>
+                <div class="card-body">
+                    <label for="txtUser" class="form-label">Username:</label>
+                    <input type="text" name="txtUser" id="txtUser" class="form-control" required>
+                    <label for="txtPassword" class="form-label mt-3">Password:</label>
+                    <input type="password" name="txtPassword" id="txtPassword" class="form-control" required>
+                    <button id="loginButton" class="col-12 mt-3 btn btn-primary rounded" type="button">Login</button>
+                    <button id="submitButton" class="col-12 mt-3 btn btn-secondary" type="button">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./js/lib/bootstrap.bundle.min.js"></script>
+    <script src="./js/lib/sweetalert2.all.min.js"></script>
+    <script src="./js/index.js"></script>
+</body>
+</html>

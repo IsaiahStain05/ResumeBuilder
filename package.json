@@ -1,0 +1,27 @@
+{
+  "name": "resumebuilder",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IsaiahStain05/ResumeBuilder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IsaiahStain05/ResumeBuilder/issues"
+  },
+  "homepage": "https://github.com/IsaiahStain05/ResumeBuilder#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1",
+    "uuid": "^14.0.0"
+  }
+}
