@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./css/lib/bootstrap.min.css">
 </head>
 <body>
-    <div id="login" class="vh-100 vw-100" style="display:block">
+    <div id="loginPage" class="vh-100 vw-100" style="display:none">
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="card border-secondary rounded col-8">
                 <div class="card-header h2 text-center">The Stainy Resume Builder</div>
@@ -16,8 +16,108 @@
                     <input type="text" name="txtUser" id="txtUser" class="form-control" required>
                     <label for="txtPassword" class="form-label mt-3">Password:</label>
                     <input type="password" name="txtPassword" id="txtPassword" class="form-control" required>
-                    <button id="loginButton" class="col-12 mt-3 btn btn-primary rounded" type="button">Login</button>
-                    <button id="submitButton" class="col-12 mt-3 btn btn-secondary" type="button">Sign Up</button>
+                    <button id="loginButton" class="col-12 mt-3 btn btn-primary" type="button">Login</button>
+                    <button id="submitButton" class="col-12 mt-3 btn btn-outline-secondary" type="button">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="homePage" class="vh-100 vw-100" style="display:block">
+        <div class="d-flex justify-content-around align-items-center my-1">
+            <div class="h3 ms-3 col-3">Stainy Resume Drafter</div>
+            <div class="d-flex gap-2 justify-content-around align-items-center">
+                <button id="btnPrint" type="button" class="btn h-50 btn-info justify-content-center align-content-center col-6">Print Resume</button>
+                <button id="btnLogout" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-6">Logout</button>
+            </div>
+        </div>
+        <hr class="mt-0"/>
+        <div class="container">
+            <div class="row jus">
+                <div class="col col-7 gap-2">
+                    <div class="d-flex mb-2 justify-content-center">
+                        <input type="text" placeholder="Full Name">
+                    </div>
+                    <div class="d-flex justify-content-evenly">
+                        <input type="text" placeholder="Email">
+                        <input type="text" placeholder="Phone #">
+                        <input type="text" placeholder="LinkedIn">
+                        <input type="text" placeholder="Address">
+                    </div>
+                    <div class="d-flex justify-content-evenly mt-2">
+                        <input type="text" placeholder="LinkedIn">
+                        <input type="text" placeholder="Website (optional)">
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-start">
+                        <h2>Objective</h2>
+                    </div>
+                    <hr class="mt-1">
+                    <input type="text" class="w-100" placeholder="Description of job">
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h2>Education</h2>
+                        <button type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-2 col-md-3 col-lg-3 me-5">Add more education</button>
+                    </div>
+                    <hr class="mt-1">
+                    <div id="edSection">
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <input type="text" placeholder="School">
+                                <input type="text" placeholder="Graduation Date">
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <input type="text" placeholder="Major">
+                                <input type="text" placeholder="GPA">
+                            </div>
+                            <div class="d-flex justify-content-end mt-2">
+                                <button class="btn btn-success col-3">Save Education</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h2>Work Experience</h2>
+                        <button type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-2 col-md-3 col-lg-3 me-5">Add more experience</button>
+                    </div>
+                    <hr class="mt-1">
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <input type="text" placeholder="Workplace">
+                            <input type="text" placeholder="Work period">
+                        </div>
+                        <div class="d-flex justify-content-around mt-2">
+                            <input type="text" class="w-100" placeholder="Description of job">
+                        </div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <button class="btn btn-success col-3">Save Work Experience</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <hr>
+                    <div class="d-flex justify-content-between">
+                        <h2>Skills</h2>
+                        <button type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-2 col-md-3 col-lg-3 me-5">Add more experience</button>
+                    </div>
+                    <hr class="mt-1">
+                    <div>
+                        <div class="d-flex justify-content-between">
+                            <input type="text" class="w-100" placeholder="Skill (may add description of use)">
+                        </div>
+                        <div class="d-flex justify-content-end mt-2">
+                            <button class="btn btn-success col-3">Save Skill</button>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="col col-1 text-center">
+                    <div class="vr h-100"></div>
+                </div>
+                <div class="col col-4">
+                    <h2 class="w-100">Enter a Gemini API Key for AI assisted resume review:</h2>
+                    <input type="text" class="w-100" placeholder="Gemini API Key">
+                    <div class="d-flex justify-content-end mt-2">
+                        <button class="btn btn-success col-3">Save API Key</button>
+                    </div>
                 </div>
             </div>
         </div>
