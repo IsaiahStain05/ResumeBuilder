@@ -26,7 +26,7 @@ document.querySelector('#loginButton').addEventListener('click', async () => {
 
     if (result.outcome == "success") {
         sessionStorage.setItem("username", result.username)
-        document.querySelector('#login').style.display = "none"
+        document.querySelector('#loginPage').style.display = "none"
         return Swal.fire({
             title: "Success!",
             html: result.message,
@@ -67,7 +67,7 @@ document.querySelector('#submitButton').addEventListener('click', async () => {
 
     if (result.outcome == "success") {
         sessionStorage.setItem("username", result.username)
-        document.querySelector('#login').style.display = "none"
+        document.querySelector('#loginPage').style.display = "none"
         return Swal.fire({
             title: "Success!",
             html: result.message,
