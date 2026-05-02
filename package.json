@@ -2,10 +2,13 @@
   "name": "resumebuilder",
   "version": "1.0.0",
   "description": "",
-  "main": "backend/server.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node backend/server.js",
+    "electron": "electron .",
+    "start": "concurrently \"npm run server\" \"npm run electron\""
   },
   "repository": {
     "type": "git",
@@ -18,10 +21,17 @@
   },
   "homepage": "https://github.com/IsaiahStain05/ResumeBuilder#readme",
   "dependencies": {
+    "@google/genai": "^1.51.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
+    "docx": "^9.6.1",
     "express": "^5.2.1",
+    "fs": "^0.0.1-security",
     "sqlite3": "^6.0.1",
     "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^41.5.0"
   }
 }

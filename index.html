@@ -5,125 +5,208 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Stainy Resume Builder</title>
     <link rel="stylesheet" href="./css/lib/bootstrap.min.css">
+    <style>
+        #printResume {
+            display: none;
+        }
+
+        @media print {
+            @page {
+                margin: 0.5in;
+            }
+
+            body {
+                color: #000;
+                background: #fff;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 11pt;
+                font-weight: 400;
+            }
+
+            #loginPage,
+            #homePage,
+            .swal2-container {
+                display: none !important;
+            }
+
+            #printResume {
+                display: block;
+            }
+
+            #printResume h1 {
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 22pt;
+                font-weight: 700;
+                margin: 0;
+                text-align: center;
+            }
+
+            #printResume h2 {
+                border-bottom: 1px solid #000;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12pt;
+                font-weight: 700;
+                margin: 14px 0 6px;
+                padding-bottom: 2px;
+                text-transform: uppercase;
+            }
+
+            #printResume p,
+            #printResume li {
+                margin-bottom: 4px;
+            }
+
+            #printResume ul {
+                margin-bottom: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div id="loginPage" class="vh-100 vw-100" style="display:block">
+    <div id="loginPage" class="vh-100 vw-100">
         <div class="d-flex justify-content-center align-items-center vh-100">
-            <div class="card border-secondary rounded col-8">
-                <div class="card-header h2 text-center">The Stainy Resume Builder</div>
+            <div class="card border-secondary rounded col-10 col-md-8">
+                <div class="card-header h2 text-center">Stainy Resume Drafter</div>
                 <div class="card-body">
                     <label for="txtUser" class="form-label">Username:</label>
-                    <input type="text" name="txtUser" id="txtUser" class="form-control" required>
+                    <input type="text" name="txtUser" id="txtUser" class="form-control" aria-label="Username" required>
                     <label for="txtPassword" class="form-label mt-3">Password:</label>
-                    <input type="password" name="txtPassword" id="txtPassword" class="form-control" required>
+                    <input type="password" name="txtPassword" id="txtPassword" class="form-control" aria-label="Password" required>
                     <button id="loginButton" class="col-12 mt-3 btn btn-primary" type="button">Login</button>
                     <button id="submitButton" class="col-12 mt-3 btn btn-outline-secondary" type="button">Sign Up</button>
                 </div>
             </div>
         </div>
     </div>
-    <div id="homePage" class="vh-100 vw-100" style="display:none">
+    <div id="homePage" class="vh-100 vw-100 d-none">
         <div class="d-flex justify-content-around align-items-center my-1">
             <div class="h3 ms-3 col-3">Stainy Resume Drafter</div>
             <div class="d-flex gap-2 justify-content-around align-items-center">
-                <button id="btnPrint" type="button" class="btn h-50 btn-info justify-content-center align-content-center col-6">Print Resume</button>
-                <button id="btnLogout" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-6">Logout</button>
+                <button id="btnPrintToDoc" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-6">Print Resume to Docx</button>
+                <button id="btnPrint" type="button" class="btn h-50 btn-info justify-content-center align-content-center col-6">Print Resume to PDF</button>
+                <button id="btnLogout" type="button" class="btn h-50 btn-secondary justify-content-center align-content-center col-6">Logout</button>
             </div>
         </div>
-        <hr class="mt-0"/>
+        <hr class="mt-0">
         <div class="container">
-            <div class="row jus">
-                <div class="col col-7 gap-2">
+            <div class="row">
+                <main class="col col-12 col-lg-7 gap-2" aria-label="Resume draft">
                     <div class="d-flex mb-2 justify-content-center">
-                        <input type="text" placeholder="Full Name">
+                        <input type="text" id="strFullName" class="form-control w-75 text-center" placeholder="Full Name" aria-label="Full name">
                     </div>
-                    <div class="d-flex justify-content-evenly">
-                        <input type="text" placeholder="Email">
-                        <input type="text" placeholder="Phone #">
-                        <input type="text" placeholder="LinkedIn">
-                        <input type="text" placeholder="Address">
+                    <div class="d-flex justify-content-evenly gap-2">
+                        <input type="email" id="strEmail" class="form-control" placeholder="Email" aria-label="Email">
+                        <input type="text" id="strPhone" class="form-control" placeholder="Phone #" aria-label="Phone number">
                     </div>
-                    <div class="d-flex justify-content-evenly mt-2">
-                        <input type="text" placeholder="LinkedIn">
-                        <input type="text" placeholder="Website (optional)">
+                    <div class="d-flex justify-content-evenly gap-2 mt-2">
+                        <input type="text" id="strLinkedIn" class="form-control" placeholder="LinkedIn" aria-label="LinkedIn">
+                        <input type="text" id="strWebsite" class="form-control" placeholder="Website (optional)" aria-label="Website">
                     </div>
                     <hr>
                     <div class="d-flex justify-content-start">
                         <h2>Objective</h2>
+                        <button id="btnReviewObjective" type="button" class="btn btn-outline-info btn-sm ms-3">Review Objective</button>
                     </div>
                     <hr class="mt-1">
-                    <input type="text" class="w-100" placeholder="Description of job">
+                    <textarea class="form-control w-100" id="strDescription" placeholder="Description of job desired/why you want it" aria-label="Resume objective" rows="2" required></textarea>
                     <hr>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <h2>Education</h2>
-                        <button type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-2 col-md-3 col-lg-3 me-5">+ Add more education</button>
+                        <button id="btnSaveEducation" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-4 col-md-3 me-2">Save Education</button>
                     </div>
                     <hr class="mt-1">
-                    <div id="edSection">
+                    <section id="edSection" aria-label="Education entries">
                         <div>
-                            <div class="d-flex justify-content-between">
-                                <input type="text" placeholder="School">
-                                <input type="text" placeholder="Graduation Date">
+                            <div class="d-flex justify-content-between gap-2">
+                                <input type="text" class="form-control" id="strSchool" placeholder="School" aria-label="School" required>
+                                <input type="text" class="form-control" id="strGradDate" placeholder="Graduation Date" aria-label="Graduation date" required>
                             </div>
-                            <div class="d-flex justify-content-between mt-2">
-                                <input type="text" placeholder="Major">
-                                <input type="text" placeholder="GPA">
+                            <div class="d-flex justify-content-between gap-2 mt-2">
+                                <input type="text" class="form-control" id="strDegree" placeholder="Degree" aria-label="Degree" required>
+                                <input type="text" class="form-control" id="strGPA" placeholder="GPA" aria-label="GPA">
                             </div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <button class="btn btn-success col-3">Save Education</button>
+                            <div class="mt-2">
+                                <textarea class="form-control" id="strEducationDetails" placeholder="Coursework, honors, or education details" aria-label="Education details" rows="2"></textarea>
                             </div>
                         </div>
-                    </div>
+                        <div id="educationList" class="mt-3" aria-live="polite"></div>
+                    </section>
                     <hr>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <h2>Work Experience</h2>
-                        <button type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-2 col-md-3 col-lg-3 me-5">+ Add more experience</button>
+                        <button id="btnSaveJob" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-4 col-md-3 me-2">Save Work</button>
                     </div>
                     <hr class="mt-1">
-                    <div>
-                        <div class="d-flex justify-content-between">
-                            <input type="text" placeholder="Workplace">
-                            <input type="text" placeholder="Work period">
+                    <section aria-label="Work experience entries">
+                        <div class="d-flex justify-content-between gap-2">
+                            <input type="text" class="form-control" id="strWorkplace" placeholder="Workplace" aria-label="Workplace" required>
+                            <input type="text" class="form-control" id="strJobTitle" placeholder="Job Title" aria-label="Job title" required>
+                        </div>
+                        <div class="d-flex justify-content-around gap-2 mt-2">
+                            <input type="text" class="form-control" id="strWorkTime" placeholder="Work period" aria-label="Work period" required>
                         </div>
                         <div class="d-flex justify-content-around mt-2">
-                            <input type="text" class="w-100" placeholder="Description of job">
+                            <textarea class="form-control w-100" id="strJobDesc" placeholder="Responsibilities and details for this job" aria-label="Job responsibilities and details" rows="3" required></textarea>
                         </div>
-                        <div class="d-flex justify-content-end mt-2">
-                            <button class="btn btn-success col-3">Save Work Experience</button>
-                        </div>
-                    </div>
+                        <div id="jobsList" class="mt-3" aria-live="polite"></div>
+                    </section>
                     <hr>
-                    <hr>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between align-items-center">
                         <h2>Skills</h2>
-                        <button type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-2 col-md-3 col-lg-3 me-5">+ Add more skills</button>
+                        <button id="btnSaveSkill" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-4 col-md-3 me-2">Save Skill</button>
                     </div>
                     <hr class="mt-1">
-                    <div>
-                        <div class="d-flex justify-content-between">
-                            <input type="text" class="w-100" placeholder="Skill (may add description of use)">
+                    <section aria-label="Skill entries">
+                        <div class="d-flex justify-content-between gap-2">
+                            <input type="text" class="form-control" id="strSkill" placeholder="Skill" aria-label="Skill" required>
+                            <input type="text" class="form-control" id="strSkillCategory" placeholder="Category" aria-label="Skill category">
                         </div>
-                        <div class="d-flex justify-content-end mt-2">
-                            <button class="btn btn-success col-3">Save Skill</button>
+                        <div class="mt-2">
+                            <textarea class="form-control w-100" id="strSkillDescription" placeholder="Skill details or example of use" aria-label="Skill details" rows="2"></textarea>
+                        </div>
+                        <div id="skillsList" class="mt-3" aria-live="polite"></div>
+                    </section>
+                    <hr>
+                </main>
+                <div class="col col-1 text-center d-none d-lg-block">
+                    <div class="vr h-100"></div>
+                </div>
+                <aside class="col col-12 col-lg-4" aria-label="Resume tools">
+                    <h2 class="w-100">Saved Resumes</h2>
+                    <label for="savedResumeSelect" class="form-label">Load Resume:</label>
+                    <select id="savedResumeSelect" class="form-select" aria-label="Load saved resume">
+                        <option value="">Select a saved resume</option>
+                    </select>
+                    <label for="strResumeName" class="form-label mt-2">Resume Name:</label>
+                    <input type="text" class="form-control w-100" id="strResumeName" placeholder="Resume name" aria-label="Resume name">
+                    <div class="d-flex justify-content-end mt-2">
+                        <button id="btnSaveResume" class="btn btn-primary btn-sm" type="button">Save Resume</button>
+                    </div>
+                    <hr>
+                    <h2 class="w-100">Enter a Gemini API Key for AI assisted resume review:</h2>
+                    <input type="password" class="form-control w-100" id="strGeminiKey" placeholder="Gemini API Key" aria-label="Gemini API Key">
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <span id="geminiStatus" class="badge text-bg-secondary">Gemini not connected</span>
+                        <div class="d-flex gap-2">
+                            <button id="btnClearApiKey" class="btn btn-outline-danger btn-sm" type="button">Clear Key</button>
+                            <button id="btnSaveApiKey" class="btn btn-success btn-sm" type="button">Save API Key</button>
                         </div>
                     </div>
                     <hr>
-                </div>
-                <div class="col col-1 text-center">
-                    <div class="vr h-100"></div>
-                </div>
-                <div class="col col-4">
-                    <h2 class="w-100">Enter a Gemini API Key for AI assisted resume review:</h2>
-                    <input type="text" class="w-100" placeholder="Gemini API Key">
-                    <div class="d-flex justify-content-end mt-2">
-                        <button class="btn btn-success col-3">Save API Key</button>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>AI Suggestions</h2>
+                        <button id="btnReviewResume" type="button" class="btn btn-outline-info btn-sm">Review Selected Resume</button>
                     </div>
-                </div>
+                    <div id="aiSuggestions" class="border border-secondary rounded p-3" aria-live="polite">
+                        Save your Gemini API key, then use the review buttons or save a resume entry to get suggestions here.
+                    </div>
+                </aside>
             </div>
         </div>
     </div>
+    <article id="printResume" aria-label="Printable resume"></article>
     <script src="./js/lib/bootstrap.bundle.min.js"></script>
     <script src="./js/lib/sweetalert2.all.min.js"></script>
-    <script src="./js/index.js"></script>
+    <script type="module" src="./js/index.js"></script>
 </body>
 </html>
