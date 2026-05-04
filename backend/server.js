@@ -8,7 +8,7 @@ import { GoogleGenAI } from "@google/genai"
 
 const intPort = 3000
 const app = express()
-let objServer = null
+let objServer = null            // Our GenAI server status
 
 app.use(express.json())
 app.use(cors())
@@ -63,68 +63,6 @@ const getApiKey = async (strUsername) => {
     return arrRows.length > 0 ? arrRows[0].apiKey : ""
 }
 
-const initializeDatabase = async () => {
-    await runQuery("PRAGMA foreign_keys = ON")
-
-    await runQuery(`CREATE TABLE IF NOT EXISTS tblJobs (
-        jobId TEXT NOT NULL,
-        userId TEXT NOT NULL,
-        companyName TEXT NOT NULL,
-        jobTitle TEXT NOT NULL,
-        workPeriod TEXT NOT NULL,
-        responsibilities TEXT NOT NULL,
-        isSelected INTEGER NOT NULL DEFAULT 1,
-        createdAt TEXT NOT NULL,
-        PRIMARY KEY(jobId),
-        FOREIGN KEY(userId) REFERENCES tblUser(username) ON DELETE CASCADE
-    )`)
-
-    await runQuery(`CREATE TABLE IF NOT EXISTS tblSkills (
-        skillId TEXT NOT NULL,
-        userId TEXT NOT NULL,
-        skillName TEXT NOT NULL,
-        skillCategory TEXT NOT NULL,
-        skillDescription TEXT NOT NULL,
-        isSelected INTEGER NOT NULL DEFAULT 1,
-        createdAt TEXT NOT NULL,
-        PRIMARY KEY(skillId),
-        FOREIGN KEY(userId) REFERENCES tblUser(username) ON DELETE CASCADE
-    )`)
-
-    await runQuery(`CREATE TABLE IF NOT EXISTS tblEducation (
-        educationId TEXT NOT NULL,
-        userId TEXT NOT NULL,
-        school TEXT NOT NULL,
-        degree TEXT NOT NULL,
-        graduationDate TEXT NOT NULL,
-        gpa TEXT NOT NULL,
-        details TEXT NOT NULL,
-        isSelected INTEGER NOT NULL DEFAULT 1,
-        createdAt TEXT NOT NULL,
-        PRIMARY KEY(educationId),
-        FOREIGN KEY(userId) REFERENCES tblUser(username) ON DELETE CASCADE
-    )`)
-
-    await runQuery(`CREATE TABLE IF NOT EXISTS tblResumes (
-        resumeId TEXT NOT NULL,
-        userId TEXT NOT NULL,
-        resumeName TEXT NOT NULL,
-        fullName TEXT NOT NULL,
-        email TEXT NOT NULL,
-        phone TEXT NOT NULL,
-        linkedIn TEXT NOT NULL,
-        website TEXT NOT NULL,
-        objective TEXT NOT NULL,
-        jobIds TEXT NOT NULL,
-        skillIds TEXT NOT NULL,
-        educationIds TEXT NOT NULL,
-        createdAt TEXT NOT NULL,
-        updatedAt TEXT NOT NULL,
-        PRIMARY KEY(resumeId),
-        FOREIGN KEY(userId) REFERENCES tblUser(username) ON DELETE CASCADE
-    )`)
-}
-
 process.on("uncaughtException", (err) => {
     console.error(err)
 })
@@ -152,7 +90,7 @@ app.post("/api/user-login", async (req, res) => {
         } else if (arrRows.length == 0) {
             return res.status(404).json({outcome: "failure", message: "<p>No user by that name exists.</p>"})
         } else {
-            return res.status(500).json({outcome: "failure", message: "<p>More than one user was found.</p>"})
+            return res.status(500).json({outcome: "failure", message: "<p>Database error.</p>"})
         }
     } catch (err) {
         return res.status(500).json({outcome: "failure", message: `<p>${err.message}</p>`})
@@ -175,7 +113,7 @@ app.post("/api/user-signup", async (req, res) => {
         } else if (arrRows.length == 1 && compareSync(strPassword, arrRows[0].password)) {
             return res.status(200).json({outcome: "success", message: "<p>Signed in!</p>", username: strUsername})
         } else if (arrRows.length > 1) {
-            return res.status(500).json({outcome: "failure", message: "<p>More than one user was found.</p>"})
+            return res.status(500).json({outcome: "failure", message: "<p>Database error.</p>"})
         }
 
         let strHashedPassword = await hashPassword(strPassword)
@@ -562,7 +500,7 @@ app.post("/api/resume-review", async (req, res) => {
         const aiGemini = new GoogleGenAI({apiKey: strApiKey})
         const objResponse = await aiGemini.models.generateContent({
             model: "gemini-3-flash-preview",
-            contents: `Review this resume ${strSectionType} entry and suggest concise improvements. Focus on action verbs, measurable impact, clarity, and professional wording. Return no more than five short bullet points.\n\n${strContent}`
+            contents: `Review this resume ${strSectionType} entry and suggest concise improvements. Focus on action verbs, measurable impact, clarity, and professional wording. Optimize the resume for passing ATS systems. Return no more than five short bullet points.\n\n${strContent}`
         })
 
         return res.status(200).json({outcome: "success", suggestions: objResponse.text})
@@ -589,7 +527,6 @@ app.post("/api/resume-review", async (req, res) => {
 })
 
 try {
-    await initializeDatabase()
     objServer = http.createServer(app)
     objServer.listen(intPort, () => {
         console.log("App listening on", intPort)

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Stainy Resume Builder</title>
     <link rel="stylesheet" href="./css/lib/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="./images/logo.png">
     <style>
         #printResume {
             display: none;
@@ -66,7 +67,7 @@
     <div id="loginPage" class="vh-100 vw-100">
         <div class="d-flex justify-content-center align-items-center vh-100">
             <div class="card border-secondary rounded col-10 col-md-8">
-                <div class="card-header h2 text-center">Stainy Resume Drafter</div>
+                <div class="card-header h2 text-center"><img src="images/logo.png" class="img-fluid col-1" alt="A sketching pad with a coffee stain on it"/> Stainy Resume Drafter</div>
                 <div class="card-body">
                     <label for="txtUser" class="form-label">Username:</label>
                     <input type="text" name="txtUser" id="txtUser" class="form-control" aria-label="Username" required>
@@ -80,8 +81,8 @@
     </div>
     <div id="homePage" class="vh-100 vw-100 d-none">
         <div class="d-flex justify-content-around align-items-center my-1">
-            <div class="h3 ms-3 col-3">Stainy Resume Drafter</div>
-            <div class="d-flex gap-2 justify-content-around align-items-center">
+            <div class="h3 col-3"><img src="images/logo.png" class="img-fluid col-1 me-4" alt="A sketching pad with a coffee stain on it"/>Stainy Resume Drafter</div>
+            <div class="d-flex gap-2 ms-5 justify-content-around align-items-around">
                 <button id="btnPrintToDoc" type="button" class="btn h-50 btn-primary justify-content-center align-content-center col-6">Print Resume to Docx</button>
                 <button id="btnPrint" type="button" class="btn h-50 btn-info justify-content-center align-content-center col-6">Print Resume to PDF</button>
                 <button id="btnLogout" type="button" class="btn h-50 btn-secondary justify-content-center align-content-center col-6">Logout</button>
@@ -202,6 +203,10 @@
                     </div>
                 </aside>
             </div>
+        </div>
+        <hr>
+        <div class="text-center">
+            <p class="fst-italic fw-light my-2">Special thank you to Codex, Bootstrap, Bootswatch, and SweetAlert libraries and developers for making this app and styling possible.</p>
         </div>
     </div>
     <article id="printResume" aria-label="Printable resume"></article>

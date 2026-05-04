@@ -636,7 +636,7 @@ function getResumeData() {
             })
             .sort((a, b) => {
                 // Try to sort by end year (newest first)
-                const numA = parseInt(a.workPeriod.split(/[-–]/g).pop()) || 0
+                const numA = parseInt(a.workPeriod.split(/[-–]/g).pop()) || 0           // Splits by hyphen or em dash
                 const numB = parseInt(b.workPeriod.split(/[-–]/g).pop()) || 0
                 return numB - numA
             }),
